@@ -35,7 +35,7 @@
     }
 
     .tooltip .tooltiptext {
-      width: 120px;
+      width: 140px;
       background-color: black;
       color: #fff;
       text-align: center;
@@ -55,8 +55,9 @@
   <div id="app">
     <main class="container">
       <article class="">
+        <h4>Create an instant link to open WhatsApp or Telegram</h4>
         <div>
-          <input v-model="tel" type="tel" placeholder="phone number" autofocus>
+          <input v-model="tel" type="tel" placeholder="WhataApp phone number or Telegram handle or number" autofocus>
         </div>
 
         <div>
@@ -79,6 +80,9 @@
           <span v-show="tooltip" class="tooltiptext">{{ tooltip }}</span>
         </div>
 
+        <small>
+          Click on the message logo to copy to clipboard.
+        </small>
       </article>
     </main>
   </div>
