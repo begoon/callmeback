@@ -91,7 +91,7 @@
       <article class="">
         <h4>Create an instant link to open WhatsApp, Telegram or Skype</h4>
         <div>
-          <input v-model="tel" placeholder="WhataApp, Telegram or Skype phone number or handle" autofocus>
+          <input v-model="rawTel" placeholder="WhataApp, Telegram or Skype phone number or handle" autofocus>
         </div>
 
         <div>
@@ -130,9 +130,11 @@
           <span v-show="tooltip" class="tooltiptext">{{ tooltip }}</span>
         </div>
 
-        <small>
-          Click on the WhatsApp, Telegram or Skype logo to copy to the clipboard.
-        </small>
+        <div>
+          <small>
+            Click on the WhatsApp, Telegram or Skype logo to copy to the clipboard.
+          </small>
+        </div>
       </article>
     </main>
   </div>
@@ -151,12 +153,13 @@
     createApp({
       data() {
         return {
-          tel: '447590001122',
+          rawTel: '447590001122',
           tooltip: '',
           tooltipTimeout: null,
         }
       },
       computed: {
+        tel() { return this.rawTel.trim(); },
         telWithoutZeroes() { return trimLeadingZeroes(this.tel); },
         wa() { return 'https://api.whatsapp.com/send?phone=' + trimLeadingPluses(this.telWithoutZeroes); },
         wa2() { return 'https://wa.me/' + this.telWithoutZeroes; },
