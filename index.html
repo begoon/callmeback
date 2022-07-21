@@ -91,7 +91,7 @@
         </div>
 
         <div>
-          <a @click="copyHandler('wa')" @mouseover="activatePressTooltip">
+          <a @click="copyHandler(wa)" @mouseover="activatePressTooltip">
             <i class="fa fa-whatsapp"></i>
           </a>
           {{ ' ' }}
@@ -99,7 +99,7 @@
         </div>
 
         <div>
-          <a @click="copyHandler('wa2')" @mouseover="activatePressTooltip">
+          <a @click="copyHandler(wa2)" @mouseover="activatePressTooltip">
             <i class="fa fa-whatsapp"></i>
           </a>
           {{ ' ' }}
@@ -107,7 +107,7 @@
         </div>
 
         <div>
-          <a @click="copyHandler('tg')" @mouseover="activatePressTooltip">
+          <a @click="copyHandler(tg)" @mouseover="activatePressTooltip">
             <i class="fa fa-telegram"></i>
           </a>
           {{ ' ' }}
@@ -142,9 +142,8 @@
         tg() { return 'https://t.me/' + this.tel; },
       },
       methods: {
-        async clip(id) {
-          const value = this[id];
-          console.log(id, value);
+        async clip(value) {
+          console.log(value);
           await navigator.clipboard.writeText(value);
         },
         setTooltip(text) {
