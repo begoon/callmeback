@@ -131,14 +131,17 @@
     createApp({
       data() {
         return {
-          tel: 447590001122,
+          tel: '447590001122',
           tooltip: '',
           tooltipTimeout: null,
         }
       },
       computed: {
-        wa() { return 'https://api.whatsapp.com/send?phone=' + this.tel; },
-        wa2() { return 'https://wa.me/' + this.tel; },
+        telWithoutZeroes() {
+          return this.trimLeadingZeroes(this.tel);
+        },
+        wa() { return 'https://api.whatsapp.com/send?phone=' + this.trimLeadingPluses(this.telWithoutZeroes); },
+        wa2() { return 'https://wa.me/' + this.telWithoutZeroes; },
         tg() { return 'https://t.me/' + this.tel; },
       },
       methods: {
@@ -163,6 +166,12 @@
         async copyHandler(id) {
           this.activateCopiedTooltip();
           await this.clip(id);
+        },
+        trimLeadingZeroes(text) {
+          return text.replace(/^0+/, '');
+        },
+        trimLeadingPluses(text) {
+          return text.replace(/^\++/, '');
         }
       }
     }).mount('#app')
