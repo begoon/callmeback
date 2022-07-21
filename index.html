@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Let me call you</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <script src="https://kit.fontawesome.com/a8f9423348.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <style>
+    .fa-telegram {
+      color: #2AABEE;
+    }
+
+    .fa-whatsapp {
+      color: #25D366;
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      top: -.5rem;
+      right: -8rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <main class="container">
+      <article class="">
+        <div>
+          <input v-model="tel" type="tel" placeholder="phone number" autofocus>
+        </div>
+
+        <div>
+          <a @click="copyHandler('wa')" @mouseover="activatePressTooltip">
+            <i class="fa fa-whatsapp"></i>
+          </a>
+          {{ ' ' }}
+          <a :href="wa" target="_blank">{{ wa }}</a>
+        </div>
+
+        <div>
+          <a @click="copyHandler('tg')" @mouseover="activatePressTooltip">
+            <i class="fa fa-telegram"></i>
+          </a>
+          {{ ' ' }}
+          <a :href="tg" target="_blank">{{ tg }}</a>
+        </div>
+
+        <div class="tooltip">
+          <span v-show="tooltip" class="tooltiptext">{{ tooltip }}</span>
+        </div>
+
+      </article>
+    </main>
+  </div>
+
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          tel: 447591234567,
+          tooltip: '',
+          tooltipTimeout: null,
+        }
+      },
+      computed: {
+        wa() { return 'https://api.whatsapp.com/send?phone=' + this.tel; },
+        wa2() { return 'https://wa.me/' + this.tel; },
+        tg() { return 'https://t.me/' + this.tel; },
+      },
+      methods: {
+        async clip(id) {
+          const value = this[id];
+          console.log(id, value);
+          await navigator.clipboard.writeText(value);
+        },
+        setTooltip(text) {
+          if (this.tooltipTimeout) {
+            clearTimeout(this.tooltipTimeout);
+            this.tooltipTimeout = null;
+          }
+          this.tooltip = text;
+          this.tooltipTimeout = setTimeout(() => this.tooltip = '', 3000);
+        },
+        activatePressTooltip() {
+          this.setTooltip('Press to copy');
+        },
+        activateCopiedTooltip() {
+          this.setTooltip('Copied');
+        },
+        async copyHandler(id) {
+          this.activateCopiedTooltip();
+          await this.clip(id);
+        }
+      }
+    }).mount('#app')
+  </script>
+
+</body>
+
+</html>
