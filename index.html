@@ -29,6 +29,10 @@
       color: #25D366;
     }
 
+    .fa-skype {
+      color: #00aff0;
+    }
+
     .tooltip {
       position: relative;
       display: inline-block;
@@ -85,9 +89,9 @@
   <div id="app">
     <main class="container">
       <article class="">
-        <h4>Create an instant link to open WhatsApp or Telegram</h4>
+        <h4>Create an instant link to open WhatsApp, Telegram or Skype</h4>
         <div>
-          <input v-model="tel" placeholder="WhataApp phone number or Telegram handle or number" autofocus>
+          <input v-model="tel" placeholder="WhataApp, Telegram or Skype phone number or handle" autofocus>
         </div>
 
         <div>
@@ -114,12 +118,20 @@
           <a :href="tg" target="_blank">{{ tg }}</a>
         </div>
 
+        <div>
+          <a @click="copyHandler(skype)" @mouseover="activatePressTooltip">
+            <i class="fa fa-skype"></i>
+          </a>
+          {{ ' ' }}
+          <a :href="skype" target="_blank">{{ skype }}</a>
+        </div>
+
         <div class="tooltip">
           <span v-show="tooltip" class="tooltiptext">{{ tooltip }}</span>
         </div>
 
         <small>
-          Click on the WhatsApp or Telegram logo to copy to clipboard.
+          Click on the WhatsApp, Telegram or Skype logo to copy to the clipboard.
         </small>
       </article>
     </main>
@@ -128,21 +140,34 @@
   <script>
     const { createApp } = Vue
 
+    function isNumeric(str) {
+      if (typeof str != "string") return false;
+      return !isNaN(str) && !isNaN(parseFloat(str));
+    }
+
+    const trimLeadingZeroes = text => text.replace(/^0+/, '');
+    const trimLeadingPluses = text => text.replace(/^\++/, '');
+
     createApp({
       data() {
         return {
-          tel: 447590001122,
+          tel: '447590001122',
           tooltip: '',
           tooltipTimeout: null,
         }
       },
       computed: {
-        wa() { return 'https://api.whatsapp.com/send?phone=' + this.tel; },
-        wa2() { return 'https://wa.me/' + this.tel; },
+        telWithoutZeroes() { return trimLeadingZeroes(this.tel); },
+        wa() { return 'https://api.whatsapp.com/send?phone=' + trimLeadingPluses(this.telWithoutZeroes); },
+        wa2() { return 'https://wa.me/' + this.telWithoutZeroes; },
         tg() { return 'https://t.me/' + this.tel; },
+        skype() {
+          const prefix = isNumeric(this.tel) ? 'call' : 'chat';
+          return 'skype:' + this.tel + "?" + prefix;
+        },
       },
       methods: {
-        async clip(value) {
+        async clipboard(value) {
           console.log(value);
           await navigator.clipboard.writeText(value);
         },
@@ -155,15 +180,15 @@
           this.tooltipTimeout = setTimeout(() => this.tooltip = '', 3000);
         },
         activatePressTooltip() {
-          this.setTooltip('Press to copy');
+          this.setTooltip('Click to copy');
         },
         activateCopiedTooltip() {
           this.setTooltip('Copied');
         },
         async copyHandler(id) {
           this.activateCopiedTooltip();
-          await this.clip(id);
-        }
+          await this.clipboard(id);
+        },
       }
     }).mount('#app')
   </script>
