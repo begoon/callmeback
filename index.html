@@ -69,6 +69,14 @@
         </div>
 
         <div>
+          <a @click="copyHandler('wa2')" @mouseover="activatePressTooltip">
+            <i class="fa fa-whatsapp"></i>
+          </a>
+          {{ ' ' }}
+          <a :href="wa2" target="_blank">{{ wa2 }}</a>
+        </div>
+
+        <div>
           <a @click="copyHandler('tg')" @mouseover="activatePressTooltip">
             <i class="fa fa-telegram"></i>
           </a>
