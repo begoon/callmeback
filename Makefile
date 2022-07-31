@@ -8,3 +8,6 @@ live:
 open:
 	open index.html
 
+test:
+	npx ava
+

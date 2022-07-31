@@ -1,0 +1,28 @@
+{
+  "name": "callmeback",
+  "version": "1.0.0",
+  "description": "Call Me Back In",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/begoon/callmeback.git"
+  },
+  "keywords": [
+    "whatsapp",
+    "telegram",
+    "skype",
+    "signal"
+  ],
+  "author": "Alexander Demin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/begoon/callmeback/issues"
+  },
+  "homepage": "https://github.com/begoon/callmeback#readme",
+  "devDependencies": {
+    "ava": "^4.3.1"
+  }
+}
