@@ -11,3 +11,6 @@ open:
 test:
 	npx ava
 
+ci:
+	npm install
+	npm run test
