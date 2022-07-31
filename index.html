@@ -33,6 +33,10 @@
       color: #00aff0;
     }
 
+    .fa-signalapp {
+      color: #406984;
+    }
+
     .tooltip {
       position: relative;
       display: inline-block;
@@ -89,7 +93,7 @@
   <div id="app">
     <main class="container">
       <article class="">
-        <h4>Create an instant link to open WhatsApp, Telegram or Skype</h4>
+        <h4>Create an instant link to open WhatsApp, Telegram, Signal or Skype</h4>
         <div>
           <input v-model="rawTel" placeholder="WhataApp, Telegram or Skype phone number or handle" autofocus>
         </div>
@@ -119,6 +123,14 @@
         </div>
 
         <div>
+          <a @click="copyHandler(sg)" @mouseover="activatePressTooltip">
+            <i class="fa fa-signalapp"></i>
+          </a>
+          {{ ' ' }}
+          <a :href="sg" target="_blank">{{ sg }}</a>
+        </div>
+
+        <div>
           <a @click="copyHandler(skype)" @mouseover="activatePressTooltip">
             <i class="fa fa-skype"></i>
           </a>
@@ -132,7 +144,7 @@
 
         <div>
           <small>
-            Click on the WhatsApp, Telegram or Skype logo to copy to the clipboard.
+            Click on the WhatsApp, Telegram, Signal or Skype logo to copy to the clipboard.
           </small>
         </div>
       </article>
