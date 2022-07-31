@@ -139,62 +139,7 @@
     </main>
   </div>
 
-  <script>
-    const { createApp } = Vue
-
-    function isNumeric(str) {
-      if (typeof str != "string") return false;
-      return !isNaN(str) && !isNaN(parseFloat(str));
-    }
-
-    const trimLeadingZeroes = text => text.replace(/^0+/, '');
-    const trimLeadingPluses = text => text.replace(/^\++/, '');
-
-    createApp({
-      data() {
-        return {
-          rawTel: '447590001122',
-          tooltip: '',
-          tooltipTimeout: null,
-        }
-      },
-      computed: {
-        tel() { return this.rawTel.trim(); },
-        telWithoutZeroes() { return trimLeadingZeroes(this.tel); },
-        wa() { return 'https://api.whatsapp.com/send?phone=' + trimLeadingPluses(this.telWithoutZeroes); },
-        wa2() { return 'https://wa.me/' + this.telWithoutZeroes; },
-        tg() { return 'https://t.me/' + this.tel; },
-        skype() {
-          const prefix = isNumeric(this.tel) ? 'call' : 'chat';
-          return 'skype:' + this.tel + "?" + prefix;
-        },
-      },
-      methods: {
-        async clipboard(value) {
-          console.log(value);
-          await navigator.clipboard.writeText(value);
-        },
-        setTooltip(text) {
-          if (this.tooltipTimeout) {
-            clearTimeout(this.tooltipTimeout);
-            this.tooltipTimeout = null;
-          }
-          this.tooltip = text;
-          this.tooltipTimeout = setTimeout(() => this.tooltip = '', 3000);
-        },
-        activatePressTooltip() {
-          this.setTooltip('Click to copy');
-        },
-        activateCopiedTooltip() {
-          this.setTooltip('Copied');
-        },
-        async copyHandler(id) {
-          this.activateCopiedTooltip();
-          await this.clipboard(id);
-        },
-      }
-    }).mount('#app')
-  </script>
+  <script src="script.js"></script>
 
 </body>
 
