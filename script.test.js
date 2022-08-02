@@ -98,6 +98,10 @@ test("sg", (t) => {
     testWithNormalizedTel(t, "sg", "https://signal.me/#p/+");
 });
 
+test("viber", (t) => {
+    testWithNormalizedTel(t, "viber", "viber://chat?number=");
+});
+
 test("tg", (t) => {
     const prefix = "https://t.me/";
     const computed = t.context.computed;

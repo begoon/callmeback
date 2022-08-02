@@ -38,6 +38,9 @@ createApp({
         sg() {
             return "https://signal.me/#p/+" + this.telNormalized;
         },
+        viber() {
+            return "viber://chat?number=" + this.telNormalized;
+        },
         skype() {
             if (isNumeric(removeParentheses(this.telWithoutBlanks))) {
                 return "skype:+" + this.telNormalized + "?call";
