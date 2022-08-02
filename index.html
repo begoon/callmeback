@@ -47,9 +47,9 @@
       width: 140px;
       background-color: black;
       color: #fff;
-      text-align: center;
+      text-align: left;
       border-radius: 6px;
-      padding: 5px 0;
+      padding: 5px 10px;
 
       /* Position the tooltip */
       position: absolute;
@@ -87,6 +87,10 @@
       bottom: 0;
       transform: translate(50%, -50%) rotate(45deg);
       color: #2AABEE;
+    }
+
+    .example {
+      cursor: pointer;
     }
   </style>
   <!-- -->
@@ -144,15 +148,19 @@
 
         <div>
           <p>
-            In WhatsApp and Signal you usually use a regular numeric phone number
-            in the international format,
-            e.q. <a href="https://api.whatsapp.com/send?phone=447590001122">447590001122</a>.
-            In Telegram it is usually a username,
-            e.q. <a href="https://t.me/BotFather">BotFather</a>.
-            In Skype it can be both: a phone number, e.q.
-            <a href="skype:+447590001122?call">447590001122</a>
-            or a username,
-            e.q. <a href="skype:echo123?chat">echo123</a>.
+            <small>
+              In WhatsApp and Signal you usually use a regular numeric phone number
+              in the international format,
+              e.q. <b class="example" @click="rawTel='447590001122'"
+                @mouseover="activateExampleTooltip">447590001122</b>.
+              In Telegram it is usually a username,
+              e.q. <b class="example" @click="rawTel='BotFather'" @mouseover="activateExampleTooltip">BotFather</b>.
+              In Skype it can be both: a phone number,
+              e.q. <b class="example" @click="rawTel='447590001122'"
+                @mouseover="activateExampleTooltip">447590001122</b>.
+              or a username,
+              e.q. <b class="example" @click="rawTel='echo123'" @mouseover="activateExampleTooltip">echo123</b>.
+            </small>
           </p>
         </div>
 

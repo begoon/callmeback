@@ -65,6 +65,9 @@ createApp({
         activateCopiedTooltip() {
             this.setTooltip("Copied");
         },
+        activateExampleTooltip() {
+            this.setTooltip("Click to copy an example");
+        },
         async copyHandler(id) {
             this.activateCopiedTooltip();
             await this.clipboard(id);
